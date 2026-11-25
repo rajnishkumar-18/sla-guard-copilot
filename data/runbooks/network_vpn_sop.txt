@@ -1,0 +1,14 @@
+TITLE: Corporate Network, Firewall & VPN Outage Runbook
+CATEGORY: Network & VPN
+ESCALATION TEAM: L2-NetOps (Primary), SecOps (Firewall/Zero-Trust)
+SLA POLICY: P1 regional VPN outage requires immediate bridge call with L2-NetOps and ISP vendor ticket within 20 minutes.
+
+SYMPTOMS:
+- Remote employees unable to connect to Cisco AnyConnect / GlobalProtect VPN, packet drops, DNS resolution failure, SSL handshake timeout.
+
+DIAGNOSTIC & RESOLUTION STEPS:
+1. Check VPN gateway health dashboard and verify active concurrent tunnel count against license ceiling.
+2. Run traceroute and ping tests from internal jump host to edge firewall and ISP gateway to isolate packet loss.
+3. Verify RADIUS / Azure AD MFA authentication logs to confirm whether failures are credential/token related rather than network transport.
+4. Shift traffic to Secondary DR VPN Concentrator if primary gateway latency exceeds 150ms or drops >5% packets.
+5. Broadcast status update on IT Ops Slack/Teams channel with ETA and workaround gateway URL.

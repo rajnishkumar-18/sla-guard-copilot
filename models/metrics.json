@@ -1,0 +1,19 @@
+{
+  "accuracy": 0.714,
+  "precision": 0.6059,
+  "recall": 0.7018,
+  "f1_score": 0.6504,
+  "roc_auc": 0.7977,
+  "train_rows": 4000,
+  "test_rows": 1000,
+  "top_features": {
+    "reassignment_count": 0.1189,
+    "sla_target_hours": 0.1129,
+    "open_tickets_in_queue": 0.0917,
+    "priority_P1 - Critical": 0.0877,
+    "is_weekend": 0.0613,
+    "category_Database & SQL": 0.0463,
+    "assigned_group_L1-ServiceDesk": 0.0433,
+    "category_Identity & Access (IAM)": 0.0432
+  }
+}

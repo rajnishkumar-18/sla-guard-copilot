@@ -1,0 +1,14 @@
+TITLE: Enterprise Web & Microservice Application Error Runbook
+CATEGORY: Application Error
+ESCALATION TEAM: L2-InfraOps (First Triage), App Engineering On-Call
+SLA POLICY: Production 5xx error rate >2% requires P1 escalation and rollback evaluation within 30 minutes.
+
+SYMPTOMS:
+- HTTP 500/502/504 errors, downstream REST API timeouts, message queue backlog (Kafka/RabbitMQ), frontend blank screen.
+
+DIAGNOSTIC & RESOLUTION STEPS:
+1. Check APM traces (Application Insights / Datadog) to pinpoint the failing microservice endpoint and latency percentile (p95/p99).
+2. Correlate timestamp with recent deployments, feature flag flips, or upstream third-party API outages.
+3. Inspect dead-letter queues (DLQ) and consumer lag; restart stalled worker pods if downstream service is healthy.
+4. Enable circuit breaker or fallback cache for non-critical downstream integrations causing thread pool starvation.
+5. Capture correlation IDs and stack traces before executing rolling restart or release rollback.

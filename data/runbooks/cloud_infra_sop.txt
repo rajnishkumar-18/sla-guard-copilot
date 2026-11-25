@@ -1,0 +1,14 @@
+TITLE: Cloud Infrastructure, Kubernetes & Server Spike Runbook
+CATEGORY: Cloud Infrastructure
+ESCALATION TEAM: L2-InfraOps (Primary), Cloud SRE On-Call
+SLA POLICY: Auto-scaling failure or production VM crash must escalate to L2-InfraOps within 30 minutes.
+
+SYMPTOMS:
+- Azure VM / AWS EC2 high CPU or memory OOMKill, Kubernetes CrashLoopBackOff, disk space >95%, Load Balancer 502/503 errors.
+
+DIAGNOSTIC & RESOLUTION STEPS:
+1. Inspect node metrics (CPU, Memory, Disk IOPS) in Azure Monitor / CloudWatch to distinguish traffic surge vs memory leak.
+2. For Kubernetes pods in CrashLoopBackOff, run kubectl describe pod and kubectl logs --previous to capture stack trace.
+3. Clear rotated application logs or expand persistent volume if root/var partition utilization exceeds 90%.
+4. Verify Horizontal Pod Autoscaler (HPA) or VM Scale Set quotas; manually scale replica count by +2 to absorb immediate load.
+5. Roll back the most recent deployment revision if errors started within 30 minutes of a CI/CD release.

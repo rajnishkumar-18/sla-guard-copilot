@@ -1,0 +1,14 @@
+TITLE: Enterprise Database & SQL Latency / Deadlock Runbook
+CATEGORY: Database & SQL
+ESCALATION TEAM: L3-DBA (Primary), L2-InfraOps (Secondary)
+SLA POLICY: P1 tickets must be acknowledged within 15 minutes and escalated to L3-DBA if unresolved after 45 minutes.
+
+SYMPTOMS:
+- Query timeouts, high DB CPU (>85%), connection pool exhaustion, transaction deadlocks, slow checkout or ERP reporting.
+
+DIAGNOSTIC & RESOLUTION STEPS:
+1. Check active blocking sessions using pg_stat_activity (PostgreSQL) or sp_who2 / sys.dm_exec_requests (SQL Server).
+2. Identify long-running unindexed queries or table locks holding shared/exclusive locks beyond 60 seconds.
+3. Verify application connection pool metrics (HikariCP / PgBouncer); recycle stale connections if pool utilization exceeds 90%.
+4. If a deadlock loop persists, terminate the non-critical blocking PID after logging query text for RCA.
+5. Trigger read-replica failover if primary node CPU stays above 90% for 10 consecutive minutes.

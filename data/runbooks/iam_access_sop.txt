@@ -1,0 +1,14 @@
+TITLE: Identity, SSO, Active Directory & Access Management Runbook
+CATEGORY: Identity & Access (IAM)
+ESCALATION TEAM: SecOps (Primary), L1-ServiceDesk (Password/MFA Reset)
+SLA POLICY: Privileged access lockouts or SSO outages affecting >20 users are P1 and escalate directly to SecOps.
+
+SYMPTOMS:
+- Azure AD / Okta SSO SAML assertion failure, repeated account lockouts, MFA push not received, expired service principal secrets.
+
+DIAGNOSTIC & RESOLUTION STEPS:
+1. Inspect Azure AD Sign-in Logs / Okta System Log for error codes (e.g., AADSTS50076 MFA required, AADSTS7000215 expired client secret).
+2. Confirm whether lockout is isolated to one user (password spray / cached mobile credentials) or tenant-wide (expired SAML certificate).
+3. For expired service principal or API certificate, rotate key in Azure Key Vault and restart dependent app services.
+4. Never bypass MFA policies; use temporary access pass (TAP) with manager approval for verified emergency lockouts.
+5. Document ticket ID and approval trail in IAM audit log for SOC2/ISO compliance.
