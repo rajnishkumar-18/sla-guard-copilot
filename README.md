@@ -1,7 +1,7 @@
 # SLA-Guard Copilot
 **Enterprise IT Ops Predictive Analytics & Azure OpenAI Decision Suite**
 
-> **Live Demo:** [Add Streamlit Cloud URL after deployment]
+> **Live Demo:** [Launch Live App](https://sla-guard-copilot-u8hshu5yz6wrafptwdqvvx.streamlit.app/)
 
 ## Overview
 SLA-Guard Copilot is an enterprise IT Operations decision suite that predicts Service Level Agreement (SLA) breaches before they occur and generates SOP-grounded resolution playbooks. It combines an **XGBoost predictive analytics pipeline** with a **RAG-powered SRE Copilot** built on the official Azure OpenAI-compatible SDK.
